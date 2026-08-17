@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IBRI - Indian Battle Royale Indus</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;600;800&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'IBM Plex Sans', 'Noto Sans Devanagari', sans-serif; background: #0a0a0f; color: #f0eee5; overflow-x: hidden; }
+#hero-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; z-index: 0; }
+.hero-overlay { position: relative; z-index: 1; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0 24px; pointer-events: none; }
+.hero-badge { font-size: 12px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: #ff6b1a; background: rgba(255,107,26,0.1); border: 1px solid rgba(255,107,26,0.3); padding: 6px 16px; border-radius: 6px; margin-bottom: 24px; }
+.hero-title { font-size: clamp(48px,12vw,120px); font-weight: 900; letter-spacing: -3px; line-height: 0.9; background: linear-gradient(180deg,#fff 0%,#ff6b1a 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.hero-slogan { font-size: clamp(16px,3vw,24px); font-style: italic; color: #ff6b1a; margin-top: 8px; }
+.hero-subtitle { font-size: 14px; color: #888880; max-width: 500px; margin-top: 16px; }
+.content { position: relative; z-index: 2; background: #0a0a0f; padding: 80px 24px; min-height: 100vh; }
+</style>
+</head>
+<body>
+<canvas id="hero-canvas"></canvas>
+<div class="hero-overlay">
+  <span class="hero-badge">Indian Battle Royale Indus</span>
+  <h1 class="hero-title">IBRI</h1>
+  <div class="hero-slogan">"Jeet Hamari, Pehchaan Hamari."</div>
+  <p class="hero-subtitle">Bharat ka Pehla Secure aur Swadeshi Gaming Ecosystem</p>
+</div>
+<div class="content"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+const scene=new THREE.Scene();scene.fog=new THREE.FogExp2(0x0a0a0f,0.015);
+const camera=new THREE.PerspectiveCamera(60,innerWidth/innerHeight,0.1,1000);camera.position.set(0,0,30);
+const renderer=new THREE.WebGLRenderer({canvas:document.getElementById('hero-canvas'),antialias:true,alpha:true});
+renderer.setSize(innerWidth,innerHeight);renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+scene.add(new THREE.AmbientLight(0x444466,0.5));
+const orangeLight=new THREE.PointLight(0xff6b1a,3,100);orangeLight.position.set(10,5,15);scene.add(orangeLight);
+const tealLight=new THREE.PointLight(0x0d9488,2,100);tealLight.position.set(-10,-5,10);scene.add(tealLight);
+const core=new THREE.Mesh(new THREE.IcosahedronGeometry(4,1),new THREE.MeshPhongMaterial({color:0xff6b1a,emissive:0x331100,shininess:80,flatShading:true,transparent:true,opacity:0.85}));scene.add(core);
+const wire=new THREE.Mesh(new THREE.IcosahedronGeometry(4.2,1),new THREE.MeshBasicMaterial({color:0xff6b1a,wireframe:true,transparent:true,opacity:0.3}));scene.add(wire);
+const ringMat=new THREE.MeshPhongMaterial({color:0x0d9488,emissive:0x002211,shininess:60});
+const ringGeo=new THREE.TorusGeometry(8,0.12,8,64);
+const ring1=new THREE.Mesh(ringGeo,ringMat),ring2=new THREE.Mesh(ringGeo,ringMat.clone()),ring3=new THREE.Mesh(ringGeo,ringMat.clone());
+ring2.rotation.x=Math.PI/2;ring3.rotation.z=Math.PI/2;scene.add(ring1,ring2,ring3);
+const pCount=200,pGeo=new THREE.BufferGeometry(),pPos=new Float32Array(pCount*3),pCol=new Float32Array(pCount*3);
+const cols=[[1,0.42,0.1],[0.05,0.58,0.53],[0.92,0.70,0.03],[1,1,0.9]];
+for(let i=0;i<pCount;i++){const r=12+Math.random()*20,th=Math.random()*6.28,ph=Math.acos(2*Math.random()-1);
+pPos[i*3]=r*Math.sin(ph)*Math.cos(th);pPos[i*3+1]=r*Math.sin(ph)*Math.sin(th);pPos[i*3+2]=r*Math.cos(ph);
+const c=cols[Math.floor(Math.random()*4)];pCol[i*3]=c[0];pCol[i*3+1]=c[1];pCol[i*3+2]=c[2];}
+pGeo.setAttribute('position',new THREE.BufferAttribute(pPos,3));pGeo.setAttribute('color',new THREE.BufferAttribute(pCol,3));
+const particles=new THREE.Points(pGeo,new THREE.PointsMaterial({size:0.25,vertexColors:true,transparent:true,opacity:0.8,blending:THREE.AdditiveBlending,sizeAttenuation:true}));scene.add(particles);
+const crystals=[];
+for(let i=0;i<8;i++){const c=new THREE.Mesh(new THREE.OctahedronGeometry(0.5+Math.random()*0.5,0),new THREE.MeshPhongMaterial({color:i%2?0x0d9488:0xff6b1a,emissive:i%2?0x002211:0x331100,shininess:100,flatShading:true}));
+const a=(i/8)*6.28,r=10+Math.random()*3;c.position.set(Math.cos(a)*r,(Math.random()-0.5)*8,Math.sin(a)*r);
+c.userData={angle:a,radius:r,speed:0.3+Math.random()*0.5,yOffset:Math.random()*6.28};crystals.push(c);scene.add(c);}
+let tRX=0,tRY=0,scY=0;
+document.addEventListener('mousemove',e=>{tRY=(e.clientX/innerWidth)*2-1;tRX=(e.clientY/innerHeight)*2-1;});
+addEventListener('scroll',()=>{scY=scrollY;});
+const clock=new THREE.Clock();
+function animate(){requestAnimationFrame(animate);const t=clock.getElapsedTime();
+core.rotation.x=wire.rotation.x=t*0.3;core.rotation.y=wire.rotation.y=t*0.2;
+const p=1+Math.sin(t*2)*0.05;core.scale.set(p,p,p);wire.scale.set(p*1.02,p*1.02,p*1.02);
+ring1.rotation.x=t*0.15;ring1.rotation.y=t*0.1;ring2.rotation.y=t*0.12;ring2.rotation.z=t*0.08;ring3.rotation.x=t*0.1;ring3.rotation.z=t*0.14;
+particles.rotation.y=t*0.02;particles.rotation.x=t*0.01;
+crystals.forEach(c=>{const a=c.userData.angle+t*c.userData.speed*0.3;c.position.x=Math.cos(a)*c.userData.radius;c.position.z=Math.sin(a)*c.userData.radius;c.position.y=Math.sin(t*0.5+c.userData.yOffset)*3;c.rotation.x=t*0.5;c.rotation.y=t*0.7;});
+const so=scY*0.01;camera.position.x+=(tRY*5-camera.position.x)*0.05;camera.position.y+=(-tRX*3+so-camera.position.y)*0.05;camera.position.z=30-so*0.5;camera.lookAt(0,0,0);
+orangeLight.position.x=Math.sin(t*0.5)*15;orangeLight.position.z=Math.cos(t*0.5)*15;tealLight.position.x=Math.sin(t*0.3+Math.PI)*12;tealLight.position.z=Math.cos(t*0.3+Math.PI)*12;
+renderer.render(scene,camera);}animate();
+addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);});
+</script>
+</body>
+</html>
