@@ -9,7 +9,7 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: 'IBM Plex Sans', 'Noto Sans Devanagari', sans-serif; background: #0a0a0f; color: #f0eee5; overflow-x: hidden; }
 
-/* NAVIGATION BAR */
+/* ===== NAVIGATION BAR ===== */
 .navbar {
   position: fixed;
   top: 0;
@@ -51,19 +51,23 @@ body { font-family: 'IBM Plex Sans', 'Noto Sans Devanagari', sans-serif; backgro
   .navbar__links { display: none; }
 }
 
-/* 3D CANVAS */
+/* ===== 3D CANVAS ===== */
 #hero-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; z-index: 0; }
+
+/* ===== HERO TEXT ===== */
 .hero-overlay { position: relative; z-index: 1; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0 24px; pointer-events: none; }
 .hero-badge { font-size: 12px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: #ff6b1a; background: rgba(255,107,26,0.1); border: 1px solid rgba(255,107,26,0.3); padding: 6px 16px; border-radius: 6px; margin-bottom: 24px; }
 .hero-title { font-size: clamp(48px,12vw,120px); font-weight: 900; letter-spacing: -3px; line-height: 0.9; background: linear-gradient(180deg,#fff 0%,#ff6b1a 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
 .hero-slogan { font-size: clamp(16px,3vw,24px); font-style: italic; color: #ff6b1a; margin-top: 8px; }
 .hero-subtitle { font-size: 14px; color: #888880; max-width: 500px; margin-top: 16px; }
+
+/* ===== CONTENT SECTION ===== */
 .content { position: relative; z-index: 2; background: #0a0a0f; padding: 80px 24px; min-height: 100vh; }
 </style>
 </head>
 <body>
 
-<!-- NAVIGATION BAR -->
+<!-- ===== NAVIGATION BAR ===== -->
 <nav class="navbar">
   <a href="#" class="navbar__logo">IBRI</a>
   <ul class="navbar__links">
@@ -76,14 +80,23 @@ body { font-family: 'IBM Plex Sans', 'Noto Sans Devanagari', sans-serif; backgro
   </ul>
 </nav>
 
+<!-- ===== 3D CANVAS ===== -->
 <canvas id="hero-canvas"></canvas>
+
+<!-- ===== HERO TEXT ===== -->
 <div class="hero-overlay">
   <span class="hero-badge">Indian Battle Royale Indus</span>
   <h1 class="hero-title">IBRI</h1>
   <div class="hero-slogan">"Jeet Hamari, Pehchaan Hamari."</div>
   <p class="hero-subtitle">Bharat ka Pehla Secure aur Swadeshi Gaming Ecosystem</p>
 </div>
-<div class="content"></div>
+
+<!-- ===== CONTENT BELOW ===== -->
+<div class="content">
+  <!-- Step 3 se yahan sections aayenge -->
+</div>
+
+<!-- ===== THREE.JS 3D ENGINE ===== -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
 const scene=new THREE.Scene();scene.fog=new THREE.FogExp2(0x0a0a0f,0.015);
