@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IBRI (INDIAN BATTLE ROYAL INDUS)</title>
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#050508">
+<link rel="icon" href="/icon-192.png">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700;800;900&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'IBM Plex Sans','Noto Sans Devanagari',sans-serif;background:#050508;color:#f0eee5;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 22px;line-height:1.5}
+.logo{width:130px;height:130px;border-radius:28px;border:2px solid #ff6b1a;box-shadow:0 0 34px rgba(255,107,26,0.45);object-fit:cover}
+h1{color:#ff6b1a;font-size:26px;font-weight:900;letter-spacing:.4px;margin:22px 0 8px;line-height:1.2}
+.sub{color:#aaa8a0;font-size:14px;margin-bottom:6px}
+.tag{color:#0d9488;font-size:12.5px;font-weight:600;margin-bottom:30px}
+.btn{display:inline-block;background:linear-gradient(135deg,#ff6b1a,#ff9d3d);color:#050508;font-weight:900;font-size:16px;letter-spacing:.5px;padding:16px 40px;border-radius:14px;text-decoration:none;box-shadow:0 8px 26px rgba(255,107,26,0.4)}
+.btn:active{transform:scale(.97)}
+.dev{color:#888880;font-size:12px;margin-top:36px}
+.quote{color:#555;font-size:11px;margin-top:4px}
+</style>
+</head>
+<body>
+<img class="logo" src="/icon-512.png" alt="IBRI">
+<h1>IBRI (INDIAN BATTLE ROYAL INDUS)</h1>
+<p class="sub">India ka apna battle royale</p>
+<p class="tag">&#127470;&#127475; Made in India &middot; No ads</p>
+<a class="btn" href="https://ibri.vercel.app" target="_blank" rel="noopener">&#9200; Pre-Register</a>
+<p class="dev">X-MONSTER-GAMING-DEV-STUDIOS</p>
+<p class="quote">Jeet Hamari, Pehchaan Hamari</p>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('/sw.js').catch(function () {});
+  });
+}
+</script>
+</body>
+</html>
