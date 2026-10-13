@@ -1,0 +1,13 @@
+{
+  "background_color": "#050508",
+  "dir": "ltr",
+  "display": "standalone",
+  "name": "IBRI (INDIAN BATTLE ROYAL INDUS)",
+  "orientation": "any",
+  "scope": "/",
+  "short_name": "IBRI",
+  "start_url": "/",
+  "theme_color": "#050508",
+  "id": "/",
+  "description": "India ka apna battle royale"
+}
